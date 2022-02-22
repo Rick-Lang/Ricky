@@ -37,7 +37,7 @@ jobs:
           GIT_AUTHOR_NAME: toddsbin
           EMAIL: toddsbin@users.noreply.github.com
         run: |
-          git diff --name-only origin/main | tee /tmp/changes.filelist.txt
+          git add .
       - name: Pull
         run: |
           git pull "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" "$GITHUB_REF"
