@@ -1,0 +1,19 @@
+{
+  "name": "rick4js",
+  "version": "1.0.0",
+  "description": "RickRoll Interpreter for JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "rick",
+    "rickroll",
+    "meme"
+  ],
+  "author": "Tinnaphat \"Tin\" Somsang",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "nexe": "^4.0.0-beta.19"
+  }
+}
