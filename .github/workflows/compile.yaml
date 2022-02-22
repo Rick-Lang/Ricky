@@ -1,0 +1,46 @@
+name: Compile
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * */1 * *"
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  watch:
+    types: [started]
+
+jobs:
+  run:
+    name: Update
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: 'yarn'
+
+      - name: Install Dependencies 📦
+        run: yarn
+
+      - name: Compile Binary
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: nexe ricky.js --target windows-x64-10.0.0 -o ./bin/ricky.exe
+      - name: Save changed files
+        env:
+          GIT_COMMITTER_NAME: toddsbin
+          GIT_AUTHOR_NAME: toddsbin
+          EMAIL: toddsbin@users.noreply.github.com
+        run: |
+          git diff --name-only origin/main | tee /tmp/changes.filelist.txt
+      - name: Pull
+        run: |
+          git pull "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" "$GITHUB_REF"
+      - name: git push
+        run: |
+          git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" "$GITHUB_REF"
