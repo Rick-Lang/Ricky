@@ -30,7 +30,7 @@ jobs:
       - name: Compile Binary
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: nexe ricky.js --target windows-x64-10.0.0 -o ./bin/ricky.exe
+        run: npx nexe ricky.js --target windows-x64-10.0.0 -o ./bin/ricky.exe
       - name: Save changed files
         env:
           GIT_COMMITTER_NAME: toddsbin
